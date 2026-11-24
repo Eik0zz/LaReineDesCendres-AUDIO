@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="fr" data-track="delete-myself"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Obsidia — Delete Myself</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}html,body{margin:0;padding:0;overflow:hidden;background:transparent;font-family:Arial,Helvetica,sans-serif}body{width:100%;min-height:76px}
+.player{position:relative;width:100%;max-width:400px;height:76px;overflow:hidden;border:1px solid #804584;border-radius:9px;background:radial-gradient(ellipse at 75% 0,#37204b 0,transparent 58%),linear-gradient(135deg,#17101e,#0b1020 60%,#160d1c);box-shadow:inset 0 0 11px #7e2c8f45;color:#f5eaff}
+.player:before{content:"";pointer-events:none;position:absolute;inset:0;background:linear-gradient(105deg,transparent 27%,#da418a22 45%,#984dff24 55%,transparent 75%);background-size:220% 100%;animation:light 6s linear infinite}
+@keyframes light{0%{background-position:170% 0}100%{background-position:-160% 0}}
+.skyline{position:absolute;inset:0 0 auto;height:34px;opacity:.5;pointer-events:none;background:repeating-linear-gradient(90deg,transparent 0 14px,#a636a825 14px 16px,transparent 16px 27px,#e43f7622 27px 30px);mask-image:linear-gradient(0deg,black,transparent)}
+.stage{position:absolute;left:5px;right:5px;top:0;height:35px;overflow:hidden;border-bottom:1px solid #a35ac536}
+.lane{height:100%;width:100%;display:flex;align-items:flex-end;justify-content:space-around;padding:0 4px 3px;animation:travel 4.5s ease-in-out infinite alternate}
+@keyframes travel{from{transform:translateX(-4px)}to{transform:translateX(4px)}}
+.person{position:relative;width:23px;height:30px;flex:none;filter:drop-shadow(0 0 2px #ac71b460);animation:bob .56s ease-in-out infinite alternate}
+.person svg{display:block;width:100%;height:100%;overflow:visible}
+.person:nth-child(2){animation-delay:.22s}.person:nth-child(3){animation-delay:.13s}.person:nth-child(4){animation-delay:.35s}.person:nth-child(5){animation-delay:.09s}
+@keyframes bob{from{transform:translateY(1px) rotate(-2deg)}to{transform:translateY(-2px) rotate(2deg)}}
+.person.dance{animation:dance .65s ease-in-out infinite alternate}
+@keyframes dance{0%{transform:translateY(0) rotate(-7deg)}50%{transform:translateY(-3px) rotate(6deg)}100%{transform:translateY(0) rotate(-5deg)}}
+.person .left-leg{transform-origin:12px 21px;animation:leg-a .42s ease-in-out infinite alternate}
+.person .right-leg{transform-origin:12px 21px;animation:leg-b .42s ease-in-out infinite alternate}
+.person .left-arm{transform-origin:9px 15px;animation:leg-b .42s ease-in-out infinite alternate}
+.person .right-arm{transform-origin:15px 15px;animation:leg-a .42s ease-in-out infinite alternate}
+.person.dance .left-arm{animation:wave-a .5s ease-in-out infinite alternate}
+.person.dance .right-arm{animation:wave-b .5s ease-in-out infinite alternate}
+@keyframes leg-a{to{transform:rotate(26deg)}}@keyframes leg-b{to{transform:rotate(-26deg)}}
+@keyframes wave-a{from{transform:rotate(-35deg)}to{transform:rotate(-90deg)}}@keyframes wave-b{from{transform:rotate(35deg)}to{transform:rotate(90deg)}}
+.name{position:absolute;left:50%;bottom:-1px;transform:translateX(-50%);font-size:5px;line-height:1;color:#dfcbec;letter-spacing:.15px;text-shadow:0 0 2px #000}
+.bottom{position:absolute;left:7px;right:7px;bottom:5px;height:32px;display:flex;align-items:center;gap:7px}
+button{touch-action:manipulation;border:0;cursor:pointer;background:none;color:#f7dcff}
+.play{width:31px;height:31px;flex:none;border-radius:7px;border:1px solid #c150a76c;background:linear-gradient(130deg,#672b60,#362251);box-shadow:0 0 8px #da489e33;font-size:15px;display:grid;place-items:center}
+.middle{display:flex;min-width:0;flex:1;flex-direction:column;gap:5px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:4px;min-width:0;font-size:11px}
+.title{font-weight:bold;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.2px}
+.time{font-size:9px;white-space:nowrap;color:#c5b4d3;font-variant-numeric:tabular-nums}
+.seek{appearance:none;width:100%;height:5px;border-radius:9px;cursor:pointer;margin:0;outline:none;background:linear-gradient(90deg,#e450ad 0%,#a86bf8 var(--progress,0%),#4b3a5b var(--progress,0%));}
+.seek::-webkit-slider-thumb{appearance:none;width:7px;height:7px;background:#f9e3ff;border-radius:50%;box-shadow:0 0 6px #e25cd6}
+.seek::-moz-range-thumb{width:7px;height:7px;background:#f9e3ff;border:0;border-radius:50%}
+.loop{border:1px solid #87548e6e;border-radius:7px;width:27px;height:27px;flex:none;display:grid;place-items:center;font-size:23px;line-height:1;color:#9e819f}
+.loop.on{color:#ffb2e2;box-shadow:inset 0 0 7px #d8518a2a}
+@media(max-width:280px){.time{font-size:8px}.title{font-size:10px}.bottom{gap:5px;left:5px;right:5px}}
+@media(prefers-reduced-motion:reduce){.player:before,.lane,.person,.person .left-leg,.person .right-leg,.person .left-arm,.person .right-arm{animation-duration:2s}}
+
+/* Reglage volume integre dans la ligne de progression, sans changer les dimensions du lecteur */
+.track-controls{display:flex;align-items:center;gap:7px;width:100%;min-width:0;height:11px}
+.track-controls .seek{min-width:22px;flex:1;width:auto}
+.volume-control{display:flex;align-items:center;gap:4px;width:70px;flex:0 0 70px;height:18px}
+.volume-icon{width:12px;height:12px;flex:none;color:#dca8e9;display:block}
+.volume{appearance:none;-webkit-appearance:none;width:100%;min-width:0;height:4px;margin:0;border-radius:9px;outline-offset:3px;cursor:pointer;background:linear-gradient(90deg,#e450ad 0%,#a86bf8 var(--vol,80%),#4b3a5b var(--vol,80%));touch-action:pan-x}
+.volume::-webkit-slider-thumb{appearance:none;width:8px;height:8px;border-radius:50%;background:#ffe9ff;box-shadow:0 0 5px #e25cd6}
+.volume::-moz-range-thumb{width:8px;height:8px;border:0;border-radius:50%;background:#ffe9ff;box-shadow:0 0 5px #e25cd6}
+@media(max-width:290px){.track-controls{gap:5px}.volume-control{width:58px;flex-basis:58px;gap:3px}}
+</style></head><body>
+<div class="player" id="player">
+<div class="skyline"></div>
+<div class="stage" aria-label="Personnages animés : Eiko, Carol, Aren, Nox et Void"><div class="lane">
+<div class="person dance" title="Eiko"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M6 13Q4 3 10 2Q19 1 19 11L18 17H6Z" fill="#0a0d16"/><ellipse cx="12" cy="9" rx="5" ry="6" fill="#d9bcb9"/><path d="M7 8Q6 0 13 2Q18 2 18 9Q15 5 12 6Q10 9 7 8" fill="#10111d"/><circle cx="10" cy="10" r=".6" fill="#9caac6"/><circle cx="14" cy="10" r=".6" fill="#9caac6"/><path d="M9 14H15L17 21H7Z" fill="#374164"/><path d="M7 21H17L18 24H6Z" fill="#535080"/><path class="left-arm" d="M8 15L4 19" stroke="#d9bcb9" stroke-width="2" stroke-linecap="round"/><path class="right-arm" d="M16 15L20 19" stroke="#d9bcb9" stroke-width="2" stroke-linecap="round"/><path class="left-leg" d="M10 23L9 28" stroke="#252840" stroke-width="2.3"/><path class="right-leg" d="M14 23L15 28" stroke="#252840" stroke-width="2.3"/></svg><span class="name">EIKO</span></div>
+<div class="person dance" title="Carol"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M6 11Q5 1 12 2Q21 3 18 15L17 19H7Z" fill="#774b54"/><ellipse cx="12" cy="10" rx="5" ry="6" fill="#ecc3b7"/><path d="M6 8Q7 1 14 3Q17 3 18 8L15 7L9 6Z" fill="#76464e"/><circle cx="10" cy="11" r=".6" fill="#433d4e"/><circle cx="14" cy="11" r=".6" fill="#433d4e"/><path d="M9 14H15L16 21H8Z" fill="#ab638e"/><path d="M8 21H16L18 24H6Z" fill="#e28aac"/><path class="left-arm" d="M8 15L4 19" stroke="#ecc3b7" stroke-width="2" stroke-linecap="round"/><path class="right-arm" d="M16 15L20 19" stroke="#ecc3b7" stroke-width="2" stroke-linecap="round"/><path class="left-leg" d="M10 23L9 28" stroke="#38354a" stroke-width="2.3"/><path class="right-leg" d="M14 23L15 28" stroke="#38354a" stroke-width="2.3"/></svg><span class="name">CAROL</span></div>
+<div class="person" title="Aren"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M17 5L22 19" stroke="#d1dff1" stroke-width="1.6"/><path d="M16 8L20 6" stroke="#b7c0df" stroke-width="2"/><ellipse cx="12" cy="9" rx="5" ry="5.5" fill="#d8b8a8"/><path d="M6 8Q7 2 11 3L16 2L19 6L15 7L13 5L9 8Z" fill="#ae865b"/><circle cx="10" cy="10" r=".6" fill="#404757"/><circle cx="14" cy="10" r=".6" fill="#404757"/><path d="M8 14H16L17 22H7Z" fill="#4e5a6e"/><path class="left-arm" d="M8 15L5 21" stroke="#d8b8a8" stroke-width="2.4"/><path class="right-arm" d="M16 15L19 21" stroke="#d8b8a8" stroke-width="2.4"/><path class="left-leg" d="M10 22L9 28" stroke="#303747" stroke-width="2.7"/><path class="right-leg" d="M14 22L15 28" stroke="#303747" stroke-width="2.7"/></svg><span class="name">AREN</span></div>
+<div class="person" title="Nox"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M5 14L3 27L20 27L18 14Z" fill="#0a0d14"/><path d="M7 4Q12 0 17 4L18 12L15 15H9L6 12Z" fill="#171b25" stroke="#697c9c" stroke-width=".7"/><path d="M8 9H16" stroke="#f7f8ff" stroke-width="1"/><path d="M7 15L17 15L19 23L5 23Z" fill="#20212c"/><path class="left-arm" d="M7 15L4 21" stroke="#2b2c3a" stroke-width="3"/><path class="right-arm" d="M17 15L20 21" stroke="#2b2c3a" stroke-width="3"/><path class="left-leg" d="M10 23L9 28" stroke="#20232c" stroke-width="3"/><path class="right-leg" d="M14 23L15 28" stroke="#20232c" stroke-width="3"/><path d="M22 2L22 23" stroke="#f9f9ff" stroke-width="2"/><path d="M19 21H24" stroke="#bac8db" stroke-width="2"/></svg><span class="name">NOX</span></div>
+<div class="person" title="Void"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M4 14L2 27L21 27L19 14Z" fill="#0e0815"/><path d="M6 4Q12 0 18 4L19 12L16 15H8L5 12Z" fill="#171020" stroke="#774a94" stroke-width=".7"/><path d="M8 9H16" stroke="#b986ea" stroke-width="1.2"/><path d="M6 15L18 15L20 23L4 23Z" fill="#25152d"/><path class="left-arm" d="M6 15L3 21" stroke="#27152e" stroke-width="3.3"/><path class="right-arm" d="M18 15L21 21" stroke="#27152e" stroke-width="3.3"/><path class="left-leg" d="M9 23L8 28" stroke="#221529" stroke-width="3.2"/><path class="right-leg" d="M15 23L16 28" stroke="#221529" stroke-width="3.2"/><path d="M23 2L23 23" stroke="#a968d7" stroke-width="2"/><path d="M20 21H24" stroke="#bc7bee" stroke-width="2"/></svg><span class="name">VOID</span></div>
+</div></div>
+<div class="bottom"><button class="play" id="play" aria-label="Lancer la musique">▶</button><div class="middle"><div class="top"><span class="title">Delete Myself</span><span class="time" id="time">0:00 / 0:00</span></div><div class="track-controls"><input id="seek" class="seek" type="range" min="0" max="1000" value="0" aria-label="Avancement de la musique"><label class="volume-control" title="Régler le volume"><svg class="volume-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5a10 10 0 0 1 0 14"/></svg><input id="volume" class="volume" type="range" min="0" max="100" step="1" value="80" aria-label="Volume sonore" aria-valuetext="80 pour cent"></label></div></div><button class="loop on" id="loop" aria-label="Lecture en boucle activée" aria-pressed="true" title="Lecture en boucle">↻</button></div>
+<audio id="audio" preload="metadata" loop src="delete-myself.mp3"></audio>
+</div>
+<script>
+const audio=document.getElementById('audio'),play=document.getElementById('play'),loop=document.getElementById('loop'),seek=document.getElementById('seek'),time=document.getElementById('time'),volume=document.getElementById('volume');
+// Chaque lecteur dispose de son propre reglage de volume.
+function updateVolume(){
+  const level=Number(volume.value);
+  audio.volume=level/100;
+  volume.style.setProperty('--vol',level+'%');
+  volume.setAttribute('aria-valuetext',level+' pour cent');
+}
+volume.addEventListener('input',updateVolume);
+updateVolume();
+// Les deux lecteurs sont integres depuis le MEME site Netlify.
+// BroadcastChannel fait communiquer leurs iframes independantes sur Google Sites.
+const playerId = document.documentElement.dataset.track || 'track-1';
+const channelName='obsidia-music-exclusive-v1';
+let channel=null;
+try {
+  channel = new BroadcastChannel(channelName);
+  channel.onmessage = event => {
+    const message=event.data;
+    if(message && message.type==='obsidia-play' && message.player!==playerId && !audio.paused){audio.pause()}
+  };
+} catch(e) { console.warn('BroadcastChannel non disponible',e) }
+// Le message de stockage fournit une solution de secours aux navigateurs compatibles.
+window.addEventListener('storage', event=>{
+  if(event.key==='obsidia-current-track' && event.newValue && event.newValue!==playerId && !audio.paused) audio.pause();
+});
+function announcePlay(){
+  if(channel) channel.postMessage({type:'obsidia-play',player:playerId});
+  try { localStorage.setItem('obsidia-current-track',playerId); } catch(e) {}
+}
+const fmt=s=>Number.isFinite(s)?Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'):'0:00';
+function update(){const duration=Number.isFinite(audio.duration)?audio.duration:0;seek.value=duration?Math.round(audio.currentTime/duration*1000):0;seek.style.setProperty('--progress',(seek.value/10)+'%');time.textContent=fmt(audio.currentTime)+' / '+fmt(duration)}
+play.onclick=async()=>{if(audio.paused){try{await audio.play()}catch(err){console.error('Lecture impossible',err);play.title='Impossible de lire le MP3'}}else audio.pause()};
+audio.onplay=()=>{announcePlay();play.textContent='Ⅱ';play.setAttribute('aria-label','Pause')};audio.onpause=()=>{play.textContent='▶';play.setAttribute('aria-label','Lancer la musique')};audio.ontimeupdate=update;audio.onloadedmetadata=update;audio.onended=()=>{if(!audio.loop)play.textContent='▶'};
+loop.onclick=()=>{audio.loop=!audio.loop;loop.classList.toggle('on',audio.loop);loop.setAttribute('aria-pressed',String(audio.loop));loop.setAttribute('aria-label',audio.loop?'Lecture en boucle activée':'Lecture en boucle désactivée')};
+seek.oninput=()=>{if(Number.isFinite(audio.duration))audio.currentTime=seek.value/1000*audio.duration;update()};update();
+</script>
+</body></html>
